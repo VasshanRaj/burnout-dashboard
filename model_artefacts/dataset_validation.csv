@@ -1,5 +1,0 @@
-Dataset,Feature set,MCC
-Primary dataset,With leak proxy,0.9783
-Primary dataset,Realistic,0.7368
-Real-world dataset,With leak proxy,0.7433
-Real-world dataset,Realistic,0.584

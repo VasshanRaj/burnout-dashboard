@@ -1,4 +1,0 @@
-feature,type,eta_with_burnout,reason
-department,categorical,0.0074,excluded: association below threshold (eta 0.007 < 0.1)
-job_level,categorical,0.027,excluded: association below threshold (eta 0.027 < 0.1)
-communication_style,categorical,0.5851,"excluded at Step 0 (integrity): generative persona label - duplicate of persona_name (Cramer's V = 1.0), category 'BurntOutStar' names the target, explains 62% of performance_score variance. Upstream of the data, not a feature."
