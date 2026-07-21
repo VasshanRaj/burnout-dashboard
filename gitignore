@@ -1,0 +1,35 @@
+# ============================================================================
+# .gitignore  —  place at the ROOT of your "FYP Code" folder.
+# Anything listed here is NOT uploaded to GitHub.
+# ============================================================================
+
+# --- BIG training leftovers the app does NOT use (keep them off GitHub) ---
+burnout_dataset.csv              # 712 MB raw dataset — app uses eda_summary.joblib instead
+outputs/checkpoints/             # notebook checkpoints (cp1 = 339 MB, etc.)
+outputs/checkpoint/              # notebook checkpoints (progress_upto_cell** = 296/105 MB)
+catboost_info/                   # CatBoost training logs — not needed at runtime
+
+# --- Python junk ---
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# --- virtual environments ---
+.venv/
+venv/
+env/
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ============================================================================
+# NOTE: everything the app needs is SMALL and stays INCLUDED, in particular:
+#   outputs/model_artefacts/     (the model + metadata, a few MB each)
+#   outputs/burnout_system.db    (the 0.17 MB demo database)
+#   burnout_system/              (app.py, burnout_core.py, etc.)
+# Do not add those to this file.
+# ============================================================================

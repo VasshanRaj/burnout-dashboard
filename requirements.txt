@@ -1,0 +1,14 @@
+# requirements.txt  —  place at the ROOT of your "FYP Code" folder
+# (same level as burnout_system/ and outputs/, NOT inside burnout_system/).
+#
+# Versions below are pinned to your local machine so the cloud behaves
+# identically. IMPORTANT: when you deploy, open "Advanced settings" and set
+# the Python version to 3.14 to match the environment these were built in.
+streamlit==1.58.0
+pandas==3.0.0
+numpy==2.4.1
+altair==6.2.1
+scikit-learn==1.9.0
+xgboost==3.3.0
+joblib==1.5.3
+shap==0.52.0
