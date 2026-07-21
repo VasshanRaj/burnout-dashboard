@@ -1,0 +1,15 @@
+feature,abs_corr_burnout,passes_relevance,gain_importance,importance_rank,kept,reason
+satisfaction_score,0.6756,True,0.4536,1,True,KEPT - relevance + redundancy
+workload_score,0.4038,True,0.2021,2,True,KEPT - relevance + redundancy
+project_completion_rate,0.4242,True,0.103,3,True,KEPT - relevance + redundancy
+performance_score,0.1071,True,0.1007,4,False,dropped - redundant (>=0.85)
+training_participation,0.0714,False,0.0642,5,True,KEPT - rescued (importance)
+career_progression_score,0.0111,False,0.0345,6,True,KEPT - rescued (importance)
+tenure_months,0.0013,False,0.0164,7,False,dropped - |r| < 0.10
+overtime_hours,0.2414,True,0.0044,8,True,KEPT - relevance + redundancy
+collaboration_score,0.4723,True,0.0039,9,True,KEPT - relevance + redundancy
+salary,0.0006,False,0.0038,10,False,dropped - |r| < 0.10
+num_soft_skills,0.0,False,0.0037,11,False,dropped - |r| < 0.10
+team_sentiment,0.002,False,0.0036,12,False,dropped - |r| < 0.10
+num_technical_skills,0.0009,False,0.0032,13,False,dropped - |r| < 0.10
+role_complexity_score,0.0051,False,0.0027,14,False,dropped - |r| < 0.10

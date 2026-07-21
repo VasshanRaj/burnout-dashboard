@@ -1,0 +1,5 @@
+scenario,removed,test_mcc,drop_vs_full
+Full selected set,-,0.7282,0.0
+Remove training_participation,training_participation,0.6786,0.0496
+Remove career_progression_score,career_progression_score,0.7069,0.0213
+Remove both rescued,training_participation + career_progression_score,0.623,0.1052

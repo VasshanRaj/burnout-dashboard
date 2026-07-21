@@ -1,0 +1,5 @@
+Dataset,Feature set,MCC,AUC_ROC
+Synthetic,With leaks (S1),0.9779,0.9996
+Synthetic,Realistic (S2),0.9864,0.9998
+Real (HackerEarth),With proxy,0.7433,0.9675
+Real (HackerEarth),Realistic,0.584,0.9039
