@@ -1313,11 +1313,16 @@ elif ss.role == "hr_analyst":
             ab = INV.get("ablation", [])
             if ab:
                 adf = pd.DataFrame(ab)
+                adf["scenario"] = adf["scenario"].replace({
+                    "Remove satisfaction + workload":          "Remove workload + satisfaction group",
+                    "Remove project completion + performance": "Remove completion + performance group",
+                    "Remove all 4 top drivers":                "Remove both feature groups",
+                })
                 st.altair_chart(alt.Chart(adf).mark_bar(color=PRIMARY, cornerRadiusEnd=3).encode(
                     x=alt.X("mcc:Q", scale=alt.Scale(domain=[0, 1]), title="MCC after removing features"),
                     y=alt.Y("scenario:N", sort=list(adf["scenario"]), title=None),
                     tooltip=["scenario", "n_features", "mcc"]).properties(height=220), use_container_width=True)
-                st.caption("MCC drops as top features are removed → the model relies on a spread of legitimate indicators.")
+                st.caption("MCC drops as the strongest feature groups are removed → the model relies on a spread of legitimate indicators.")
             st.markdown("---")
             st.subheader("Check 6 — Threshold sensitivity (are the 0.40 / 0.70 cut-points arbitrary?)")
             ts = INV.get("threshold_sensitivity", [])
