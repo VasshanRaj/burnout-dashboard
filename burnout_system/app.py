@@ -1336,7 +1336,7 @@ elif ss.role == "hr_analyst":
                 st.altair_chart(alt.Chart(tsdf).mark_line(point=True).encode(
                     x=alt.X("cut:N", title="low / high cut-point", sort=None,
                     axis=alt.Axis(labelAngle=-45, labelFontSize=9)),
-                    y=alt.Y(f"{metric}:Q", scale=alt.Scale(zero=False, nice=False, padding=8), title=metric.upper()),
+                    y=alt.Y(f"{metric}:Q", scale=alt.Scale(zero=False, nice=False, padding=10), title=metric.upper()),
                     color=alt.Color("model:N", title=None),
                     tooltip=["cut", "model", "mcc", "auc", "macro_f1", "test_pct_high"]
                 ).properties(height=320), use_container_width=True)
