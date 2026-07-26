@@ -1136,10 +1136,12 @@ elif ss.role == "hr_analyst":
                         f"thresholds ({ceil['low_mod_cut']}/{ceil['mod_high_cut']}) were used instead of quantile bins. "
                         f"High ≈ {cd[-1]['Percentage']}% makes MCC the primary metric.</div>", unsafe_allow_html=True)
             st.markdown("---")
-            st.subheader("Feature distributions")
+           st.subheader("Feature distributions")
             nh = EDA.get("numeric_histograms", {})
             if nh:
-                f = st.selectbox("Feature", list(nh.keys()))
+                _selected = META.get("s2_features", [])
+                _avail = [c for c in nh.keys() if c in _selected] or list(nh.keys())
+                f = st.selectbox("Feature", _avail)
                 hdf = pd.DataFrame(nh[f])
                 st.altair_chart(alt.Chart(hdf).mark_bar(color=PRIMARY, opacity=.8).encode(
                     x=alt.X("x:Q", title=f), y=alt.Y("count:Q", title="Count"),
