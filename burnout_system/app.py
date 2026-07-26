@@ -1136,7 +1136,7 @@ elif ss.role == "hr_analyst":
                         f"thresholds ({ceil['low_mod_cut']}/{ceil['mod_high_cut']}) were used instead of quantile bins. "
                         f"High ≈ {cd[-1]['Percentage']}% makes MCC the primary metric.</div>", unsafe_allow_html=True)
             st.markdown("---")
-           st.subheader("Feature distributions")
+            st.subheader("Feature distributions")
             nh = EDA.get("numeric_histograms", {})
             if nh:
                 _selected = META.get("s2_features", [])
