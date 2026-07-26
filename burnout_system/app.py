@@ -1037,10 +1037,7 @@ elif ss.role == "hr_manager":
             "reason it was built.")
 
         st.markdown("---")
-        st.caption(f"Model version `{core.model_version()}` · trained on 595,000 records, tested on "
-                   f"127,500 unseen ones · {len(svc.S2)} inputs. The version code changes whenever "
-                   f"the model or the scoring is updated, so any past prediction can be traced back "
-                   f"to exactly what produced it.")
+
 
 # ============================================================ HR ANALYST
 elif ss.role == "hr_analyst":
@@ -1082,9 +1079,7 @@ elif ss.role == "hr_analyst":
     TEST = META.get("test_metrics", {})
     CLASS_ORDER = META["class_order"]
 
-    st.caption(f"Model in use: {META.get('model_name','?')} · {META.get('strategy','?')} · "
-               f"isotonic-calibrated · Test MCC {TEST.get('mcc', float('nan')):.3f} · "
-               f"version `{core.model_version()}`")
+    st.caption(f"Model in use: {META.get('model_name','?')}")
 
     # Top radio replaces the original sidebar navigation (app_analytics.py used `st.sidebar`),
     # so the same four sections sit alongside the Employee/HR Manager views' own top radios
@@ -1106,7 +1101,7 @@ elif ss.role == "hr_analyst":
         recon = (INV or {}).get("reconstruction_r2", {})
         r2 = f"{max(recon.values()):.2f}" if recon else "≈0.83"
         st.markdown(f"<div class='finding'><b>Summary.</b> The model classifies employees into Low / Moderate / High "
-                    f"burnout risk at MCC ≈ {TEST.get('mcc', float('nan')):.2f} — a strong, credible result. The selected "
+                    f"burnout risk at MCC ≈ {TEST.get('mcc', float('nan')):.2f}. The selected "
                     f"features explain a large share of the burnout score (R² ≈ {r2}) without the target being a "
                     f"deterministic copy of the inputs, so the model has genuine learning to do.</div>", unsafe_allow_html=True)
         
