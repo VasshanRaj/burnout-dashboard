@@ -1292,13 +1292,14 @@ elif ss.role == "hr_analyst":
                 po = INV.get("post_outcome", {})
                 if po:
                     pdf = pd.DataFrame([{"set": "Realistic (deployed)", "mcc": round(float(po["s2_best"]), 4)},
-                                        {"set": "Leak columns added back", "mcc": round(float(po["s1_best"]), 4)}])
+                                        {"set": "+ post-outcome columns", "mcc": round(float(po["s1_best"]), 4)}])
                     bars = alt.Chart(pdf).mark_bar(color=PRIMARY, cornerRadiusEnd=4).encode(
                         y=alt.Y("set:N", title=None, sort=list(pdf["set"])), x=alt.X("mcc:Q", scale=alt.Scale(domain=[0, 1]), title="best MCC"), tooltip=["set", "mcc"])
                     lab = alt.Chart(pdf).mark_text(align="left", dx=4, fontWeight="bold", color="white").encode(
                         y=alt.Y("set:N", sort=list(pdf["set"])), x="mcc:Q", text=alt.Text("mcc:Q", format=".4f"))
                     st.altair_chart((bars+lab).properties(height=190), use_container_width=True)
-                    st.caption(f"Adding leak columns back inflates MCC by {po['s1_best']-po['s2_best']:+.4f} → correctly excluded.")
+                    st.caption(f"Adding only the post-outcome columns to the real feature set inflates MCC by "
+                               f"{po['s1_best']-po['s2_best']:+.4f} → isolates the leakage to those columns, correctly excluded.")
             with c4:
                 st.subheader("Check 4 — Ceiling robustness")
                 cm = INV.get("ceiling_removed_mcc")
