@@ -1291,7 +1291,7 @@ elif ss.role == "hr_analyst":
                 st.subheader("Check 3 — Leakage control")
                 po = INV.get("post_outcome", {})
                 if po:
-                    pdf = pd.DataFrame([{"set": "Realistic (deployed)", "mcc": round(float(po["s2_best"]), 4)},
+                    pdf = pd.DataFrame([{"set": "Selected Columns", "mcc": round(float(po["s2_best"]), 4)},
                                         {"set": "+ post-outcome columns", "mcc": round(float(po["s1_best"]), 4)}])
                     bars = alt.Chart(pdf).mark_bar(color=PRIMARY, cornerRadiusEnd=4).encode(
                         y=alt.Y("set:N", title=None, sort=list(pdf["set"])), x=alt.X("mcc:Q", scale=alt.Scale(domain=[0, 1]), title="best MCC"), tooltip=["set", "mcc"])
