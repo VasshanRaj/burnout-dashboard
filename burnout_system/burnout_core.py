@@ -9,6 +9,7 @@ its user interfaces — now three interfaces, still one shared layer.
 """
 import os
 import io
+import re
 from datetime import datetime
 import joblib
 import numpy as np
@@ -512,6 +513,8 @@ def register_employee(eid, name, password, department=None, job_title=None):
     title = str(job_title or "").strip()
     if not eid:
         return False, "Please enter your employee ID."
+    if not re.fullmatch(r"E\d{4}", eid):
+        return False, "Employee ID must be in the format E#### (E followed by four digits)."
     if len(password or "") < 6:
         return False, "Please choose a password of at least 6 characters."
     exists, has_acct, _ = employee_account(eid)
