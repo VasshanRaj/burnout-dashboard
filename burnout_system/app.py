@@ -951,8 +951,7 @@ elif ss.role == "hr_manager":
                 cmpd.append({"Measure": lbl, "Bottom 10% of the reference dataset": f"{q[10]:.2f}",
                              "Typical employee (median)": f"{q[50]:.2f}", "Top 10% of the reference dataset": f"{q[90]:.2f}"})
         st.dataframe(pd.DataFrame(cmpd), use_container_width=True, hide_index=True)
-        st.caption("Scores run 0–1. Higher is better on every row — including workload, where a "
-                   "high score means the workload is manageable, not that there is a lot of it.")
+        
 
         st.markdown("---")
         st.markdown("#### What the three tiers mean")
