@@ -890,8 +890,8 @@ elif ss.role == "hr_manager":
                                  "person's workload typical, or in the bottom 10%?"),
                  ("3 · Estimate", "The model weighs all seven together and returns a risk score "
                                   "from 0 to 1."),
-                 ("4 · Route", f"Score at or above {TT['Priority']:.2f} → Priority. "
-                               f"{TT['Elevated']:.2f}–{TT['Priority']:.2f} → Elevated. "
+                 ("4 · Route", f"Score at or above {TT['Priority']:.2f} → Priority.\n "
+                               f"{TT['Elevated']:.2f}–{TT['Priority']:.2f} → Elevated.\n "
                                f"Below {TT['Elevated']:.2f} → Monitor.")]
         for col, (h, t) in zip(s, steps):
             col.markdown(f"<div class='kpi' style='min-height:150px'><div class='kpi-label'>{h}</div>"
