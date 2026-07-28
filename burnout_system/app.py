@@ -622,9 +622,8 @@ elif ss.role == "hr_manager":
         # =====================================================================
         # PANEL 1 — What's driving burnout (team-wide)
         # =====================================================================
-        st.markdown("### 1 · What's driving burnout (team-wide)")
-        st.caption("Which factors are dragging the selected group down, ranked. Raw feature names "
-                   "are used exactly as the model stores them.")
+        st.markdown("### 1 · What's driving burnout risk (team-wide)")
+        st.caption("Which factors are dragging the selected group down, ranked.")
         fa = render_filters(analytics, "drv", include_dept=True)
         st.caption(f"Based on {len(fa)} of {len(analytics)} employees (latest check-in each).")
         overall = concern_table(fa)
@@ -637,16 +636,13 @@ elif ss.role == "hr_manager":
                 y=alt.Y("feature:N", sort="-x", title=None),
                 tooltip=["feature", "concern", "avg_percentile"]).properties(height=290),
                 use_container_width=True)
-            st.caption("0 = everyone at the good end, 100 = everyone at the concerning end. The "
-                       "tallest bar is where the most people are struggling. overtime_hours and "
-                       "workload_dissatisfaction are flipped so that, as with the others, a taller "
-                       "bar means worse. Describes the group, not any one person.")
+            
 
         # =====================================================================
         # PANEL 2 — Burnout by department
         # =====================================================================
         st.markdown("---")
-        st.markdown("### 2 · Burnout by department")
+        st.markdown("### 2 · Burnout Risk by department")
         st.caption("Compare departments side by side.")
         fb = render_filters(analytics, "bydept", include_dept=True)
         st.caption(f"Based on {len(fb)} of {len(analytics)} employees.")
