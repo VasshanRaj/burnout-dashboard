@@ -801,9 +801,7 @@ elif ss.role == "hr_manager":
             st.dataframe(rdf.drop(columns=["_bad"]), use_container_width=True, hide_index=True, height=260)
             st.caption("Percentile = where this answer sits in the reference dataset the model was "
                        "trained on — not this organisation's own staff, and not a comparison with "
-                       "colleagues. It is a relative position on the model's scale. On deployment "
-                       "the reference would be recalibrated to the organisation's own distribution. "
-                       "Low percentiles are the concerning end.")
+                       "colleagues. It is a relative position on the model's scale.")
             # Overtime is self-reported HOURS, not equated against the reference dataset, so it does
             # not belong in the percentile table. It gets its own small card instead.
             ot = float(cur["overtime_hours"])
@@ -811,8 +809,7 @@ elif ss.role == "hr_manager":
             st.markdown(f"<div class='kpi'><div class='kpi-label'>Overtime reported</div>"
                         f"<div class='kpi-value'>{ot:.0f}h / week</div>"
                         f"<div class='kpi-label'>{_ot_note}</div></div>", unsafe_allow_html=True)
-            st.caption("Self-reported overtime hours — shown on its own because, unlike the "
-                       "measures above, it is not converted into a reference-dataset percentile.")
+            st.caption("Self-reported overtime hours")
 
         with st.expander("Technical explanation (SHAP contributions)"):
             names, sh = svc.shap_high(r["Xp"])
@@ -837,7 +834,7 @@ elif ss.role == "hr_manager":
         acts = []
         def low(c, thresh=25):
             p = pctile(c, float(cur[c])); return p is not None and p <= thresh
-        if low("satisfaction_score"):       acts.append("**Job satisfaction is low** relative to colleagues — a supportive 1:1 may help surface why.")
+        if low("satisfaction_score"):       acts.append("**Job satisfaction is low** — a supportive 1:1 may help surface why.")
         if low("workload_score"):           acts.append("**Workload is not manageable** — review task allocation, deadlines and priorities.")
         if float(cur["overtime_hours"]) > 8: acts.append(f"**Sustained overtime** ({float(cur['overtime_hours']):.0f}h/week) — discuss workload and work-life balance.")
         if low("collaboration_score"):      acts.append("**Limited team support reported** — check integration, pairing and inclusion.")
