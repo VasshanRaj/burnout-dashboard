@@ -874,7 +874,7 @@ elif ss.role == "hr_manager":
         st.markdown("### How this dashboard works")
         st.markdown(
             "Employees answer a short wellbeing questionnaire. Their answers are compared against "
-            "the working conditions of **850,000 employee records**, and a model that learned the "
+            "the working conditions of **the reference dataset**, and a model that learned the "
             "patterns in those records estimates how closely this person's situation resembles "
             "people who went on to experience high burnout risk. The result is a **score between "
             "0 and 1**, which decides which of three action tiers they land in.\n\n"
@@ -886,7 +886,7 @@ elif ss.role == "hr_manager":
         st.markdown("#### From an answer to an action, in four steps")
         s = st.columns(4)
         steps = [("1 · Ask", "Six short question sets plus overtime hours. Around 3 minutes."),
-                 ("2 · Compare", "Each answer is placed against the 850,000 records — is this "
+                 ("2 · Compare", "Each answer is placed against the reference dataset — is this "
                                  "person's workload typical, or in the bottom 10%?"),
                  ("3 · Estimate", "The model weighs all seven together and returns a risk score "
                                   "from 0 to 1."),
