@@ -1005,7 +1005,7 @@ elif ss.role == "hr_manager":
                 f"other two, so it is inherently the hardest to pin down.\n\n"
                 f"**How it gets things wrong is reassuring**. Almost every mistake is one step off "
                 f"- Moderate instead of High, or Low instead of Moderate. The most serious error, mixing "
-                f"up high-risk and low-risk, is rare. It happens in about 2 in every 100 cases. ")
+                f"up high-risk and low-risk, is rare. It happens in about **2 in every 100 cases**. ")
 
         st.markdown("---")
         st.markdown("#### What this dashboard cannot do")
