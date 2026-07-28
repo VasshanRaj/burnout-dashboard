@@ -929,16 +929,16 @@ elif ss.role == "hr_manager":
         st.markdown("#### Why answers are compared, not just added up")
         st.markdown(
             "A score of 3 out of 5 sounds average. Whether it is average depends entirely on the question.\n\n"
-            "Take **career progression**. In the reference dataset, the typical employee(median) scores "
+            f"Take **career progression**. In the reference dataset, the typical employee (median) scores "
             f"**{QS.get('career_progression_score', [0]*101)[50]:.2f}** — most people feel their "
-            "career is moving. So someone answering a flat 3 out of 5 is therefore not average at all; "
-            "they are near the **bottom** of the workforce on that measure. **Training participation** runs the "
-            f"opposite way: the typical employee(median) is at "
+            "career is moving. So someone answering a flat 3 out of 5 is not average at all; "
+            "they are near the **bottom** of the reference dataset on that measure. **Training participation** runs the "
+            f"opposite way: the typical employee (median) is at "
             f"**{QS.get('training_participation', [0]*101)[50]:.2f}**, so a 3 out of 5 answer is "
             "actually *above* most colleagues.\n\n"
             "This is why each answer is read as a **position in the reference dataset**, "
-            "not as a bare number because the same score can mean "struggling" on one measure and "doing well" on another. "
-            "The comparison is the meaningful part")
+            "not as a bare number — the same score can mean 'struggling' on one measure and 'doing well' on another. "
+            "The comparison is the meaningful part.")
         cmpd = []
         for c, lbl in [("satisfaction_score", "Job satisfaction"),
                        ("workload_score", "Workload manageability"),
