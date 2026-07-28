@@ -983,17 +983,17 @@ elif ss.role == "hr_manager":
         hi, lo, mo = PCR.get("High", {}), PCR.get("Low", {}), PCR.get("Moderate", {})
         if hi:
             a = st.columns(3)
-            a[0].markdown(f"<div class='kpi'><div class='kpi-label'>Finds high-risk people</div>"
+            a[0].markdown(f"<div class='kpi'><div class='kpi-label'>CATCHES HIGH-RISK EMPLOYEES</div>"
                           f"<div class='kpi-value'>{hi.get('recall',0)*100:.0f}%</div>"
-                          f"<div class='kpi-label'>of those genuinely at high risk</div></div>",
+                          f"<div class='kpi-label'>of everyone genuinely at high risk, the model correctly flags 91%</div></div>",
                           unsafe_allow_html=True)
-            a[1].markdown(f"<div class='kpi'><div class='kpi-label'>Right when it flags</div>"
+            a[1].markdown(f"<div class='kpi'><div class='kpi-label'>HIGH-RISK FLAGS THAT ARE CORRECT</div>"
                           f"<div class='kpi-value'>{hi.get('precision',0)*100:.0f}%</div>"
-                          f"<div class='kpi-label'>of high-risk flags are correct</div></div>",
+                          f"<div class='kpi-label'>when it flags someone as high-risk, it's right 93% of the time</div></div>",
                           unsafe_allow_html=True)
-            a[2].markdown(f"<div class='kpi'><div class='kpi-label'>Overall accuracy</div>"
+            a[2].markdown(f"<div class='kpi'><div class='kpi-label'>OVERALL ACCURACY (ALL 3 LEVELS)</div>"
                           f"<div class='kpi-value'>{TM.get('accuracy',0)*100:.0f}%</div>"
-                          f"<div class='kpi-label'>correct across all three levels</div></div>",
+                          f"<div class='kpi-label'>correctly sorts 85% of employees into Low, Moderate or High</div></div>",
                           unsafe_allow_html=True)
             st.write("")
             st.markdown(
@@ -1007,13 +1007,6 @@ elif ss.role == "hr_manager":
                 f"always by one step — calling someone Moderate who is actually High, or Low who is "
                 f"actually Moderate. Confusing a high-risk employee with a low-risk one, the error "
                 f"that would matter most, happens in about **2 of every 100** cases.")
-        st.info(
-            "**Why the dashboard acts on the score, not the label.** Sorting people into "
-            "Low / Moderate / High is a blunt instrument, and it misses roughly 1 in 10 high-risk "
-            "employees. The tiers use the underlying 0–1 score instead, which catches more of them "
-            "— around **93%** — because someone can be flagged without 'High' having to be their "
-            "single most likely label. Testing showed this recovers about **2,000 more high-risk "
-            "employees per 127,500** than the label alone would.")
 
         st.markdown("---")
         st.markdown("#### What this dashboard cannot do")
