@@ -371,7 +371,7 @@ elif ss.role == "hr_manager":
         prev = g.iloc[-2] if len(g) > 1 else None
         d_p  = float(cur["_phigh"] - prev["_phigh"]) if prev is not None else np.nan
         d_t  = (TIER_RANK[cur["_tier"]] - TIER_RANK[prev["_tier"]]) if prev is not None else 0
-        if prev is None:                       trend = "• New"
+        if prev is None:                       trend = "• Single Check-In"
         elif d_t > 0 or d_p >= WORSENED_P:     trend = "▲ Worsening"
         elif d_t < 0 or d_p <= -WORSENED_P:    trend = "▼ Improving"
         else:                                  trend = "– Stable"
@@ -456,7 +456,7 @@ elif ss.role == "hr_manager":
 
     # ---------- EVERYONE ----------
     elif view == "Everyone":
-        ALL_DIRS = ["▲ Worsening", "– Stable", "▼ Improving", "• New"]
+        ALL_DIRS = ["▲ Worsening", "– Stable", "▼ Improving", "• Single Check-In"]
         f1, f2 = st.columns([2, 1])
         q  = f1.text_input("Search by ID or name", placeholder="type to filter…").strip().lower()
         tf = f2.multiselect("Show tiers", ["Priority", "Elevated", "Monitor"],
@@ -587,7 +587,7 @@ elif ss.role == "hr_manager":
                              "avg_percentile": round(mean_pct, 1)})
             return pd.DataFrame(recs)
 
-        _ALL_DIRS = ["▲ Worsening", "– Stable", "▼ Improving", "• New"]
+        _ALL_DIRS = ["▲ Worsening", "– Stable", "▼ Improving", "• Single Check-In"]
         # ---- reusable filter row, rendered INLINE (no expander). `key` namespaces every widget so
         #      each panel's controls stay separate. `include_dept` toggles the department multiselect. ----
         def render_filters(frame, key, include_dept=True):
