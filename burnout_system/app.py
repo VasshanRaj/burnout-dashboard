@@ -623,7 +623,6 @@ elif ss.role == "hr_manager":
         # PANEL 1 — What's driving burnout (team-wide)
         # =====================================================================
         st.markdown("### 1 · What's driving burnout risk (team-wide)")
-        st.caption("Which factors are dragging the selected group down, ranked.")
         fa = render_filters(analytics, "drv", include_dept=True)
         st.caption(f"Based on {len(fa)} of {len(analytics)} employees (latest check-in each).")
         overall = concern_table(fa)
@@ -632,7 +631,7 @@ elif ss.role == "hr_manager":
         else:
             st.altair_chart(alt.Chart(overall).mark_bar(color=PRIMARY, cornerRadiusEnd=4).encode(
                 x=alt.X("concern:Q", scale=alt.Scale(domain=[0, 100]),
-                        title="concern level  (higher = more of the group at the unfavourable end)"),
+                        title="Concern Level"),
                 y=alt.Y("feature:N", sort="-x", title=None),
                 tooltip=["feature", "concern", "avg_percentile"]).properties(height=290),
                 use_container_width=True)
@@ -662,7 +661,7 @@ elif ss.role == "hr_manager":
                     tooltip=["department", "tier", "people"]
                     ).properties(height=max(240, 40 * len(order_b))), use_container_width=True)
                 st.caption("Each bar is one department, split by the share of its people in each "
-                           "tier. Ordered by average risk — highest at the top.")
+                           "tier. Ordered by average risk")
             with cD2:
                 meanr = fb.groupby("department")["p_high"].mean().reset_index(name="mean_risk")
                 st.altair_chart(alt.Chart(meanr).mark_bar(color=ACCENT, cornerRadiusEnd=4).encode(
@@ -704,7 +703,7 @@ elif ss.role == "hr_manager":
                     st.caption("Not enough data to break down the drivers for this selection.")
                 else:
                     st.altair_chart(alt.Chart(dept_conc).mark_bar(color=PRIMARY, cornerRadiusEnd=4).encode(
-                        x=alt.X("concern:Q", scale=alt.Scale(domain=[0, 100]), title="concern level"),
+                        x=alt.X("concern:Q", scale=alt.Scale(domain=[0, 100]), title="Concern Level"),
                         y=alt.Y("feature:N", sort="-x", title=None),
                         tooltip=["feature", "concern", "avg_percentile"]).properties(height=290),
                         use_container_width=True)
