@@ -18,7 +18,7 @@
 # Run from the PROJECT ROOT:
 #   streamlit run burnout_system/app.py
 # ============================================================
-import os, sys
+import os, sys, re
 import numpy as np
 import pandas as pd
 import altair as alt
@@ -176,6 +176,9 @@ elif ss.role == "employee":
 
         with t_up:
             su_id = st.text_input("Employee ID", key="su_id", placeholder="e.g. E1002")
+            if ss.get("emp_id_error"):
+                st.error("⚠️ Invalid Employee ID format. Please use the format E#### — the letter "
+                         "E followed by four digits (for example, E1002).")
             su_nm = st.text_input("Your name", key="su_nm")
             _cd, _cj = st.columns(2)
             su_dept  = _cd.selectbox("Department", core.DEPARTMENTS, key="su_dept")
@@ -184,9 +187,13 @@ elif ss.role == "employee":
                                   help="At least 6 characters.")
             su_p2 = st.text_input("Confirm password", type="password", key="su_p2")
             if st.button("Create account", type="primary", key="su_go"):
-                if su_pw != su_p2:
+                if not re.fullmatch(r"E\d{4}", su_id.strip()):
+                    ss.emp_id_error = True
+                elif su_pw != su_p2:
+                    ss.emp_id_error = False
                     st.error("The two passwords do not match.")
                 else:
+                    ss.emp_id_error = False
                     ok, msg = core.register_employee(su_id, su_nm, su_pw, su_dept, su_title)
                     if ok:
                         okl, nm = core.authenticate_employee(su_id, su_pw)
@@ -276,10 +283,20 @@ elif ss.role == "employee":
                 st.markdown("<hr style='opacity:.12'>", unsafe_allow_html=True)
             st.markdown("#### Working hours")
             overtime = st.number_input("Overtime hours per week (beyond your contracted hours)",
-                                       0.0, 60.0, 0.0, 0.5)
+                                       min_value=0.0, value=0.0, step=0.5,
+                                       help="Enter 0–40. If you genuinely worked more than 40, enter 40.")
             submitted = st.form_submit_button("Submit my check-in", type="primary", use_container_width=True)
 
-        if submitted:
+        if submitted and overtime > 40:
+            ss.emp_ot_error = True
+
+        if ss.get("emp_ot_error"):
+            st.error("⚠️ Overtime value is too high. The maximum accepted is 40 hours per week. "
+                     "Please re-enter a value of 40 or less. If you genuinely worked more than 40 "
+                     "hours, please enter the maximum of 40.")
+
+        if submitted and overtime <= 40:
+            ss.emp_ot_error = False
             feats = svc.features_for(responses, overtime)
             res = svc.predict(pd.DataFrame([feats]))
             # Identity comes from the signed-in session, not a free-text box: previously
