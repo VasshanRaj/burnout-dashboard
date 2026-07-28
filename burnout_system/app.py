@@ -395,10 +395,7 @@ elif ss.role == "hr_manager":
     # ---------- NEEDS ATTENTION (the landing screen) ----------
     if view == "Needs attention":
         st.markdown(f"#### {len(attention)} employees have got worse since their last check-in")
-        st.caption(f"Out of {len(people)} people with a check-in on record. "
-                   f"Currently {int(tc['Priority'])} sit in Priority — too many to contact individually, "
-                   f"which is why this screen ranks by CHANGE rather than by level. Someone sliding from "
-                   f"Monitor toward Elevated is easier to help than someone already at Priority.")
+        st.caption(f"Out of {len(people)} people with a check-in on record. ")
         if attention.empty:
             st.success("Nobody has moved into a worse tier since their previous check-in.")
         else:
