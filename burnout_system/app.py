@@ -1003,10 +1003,9 @@ elif ss.role == "hr_manager":
                 f"{lo.get('recall',0)*100:.0f}%** of low-risk ones, but only **"
                 f"{mo.get('recall',0)*100:.0f}%** of the moderate group. Moderate sits between the "
                 f"other two, so it is inherently the hardest to pin down.\n\n"
-                f"The reassuring part is *how* it gets things wrong. When it is wrong, it is almost "
-                f"always by one step — calling someone Moderate who is actually High, or Low who is "
-                f"actually Moderate. Confusing a high-risk employee with a low-risk one, the error "
-                f"that would matter most, happens in about **2 of every 100** cases.")
+                f"**How it gets things wrong is reassuring**. Almost every mistake is one step off "
+                f"- Moderate instead of High, or Low instead of Moderate. The most serious error, mixing "
+                f"up high-risk and low-risk, is rare. It happens in about 2 in every 100 cases. ")
 
         st.markdown("---")
         st.markdown("#### What this dashboard cannot do")
