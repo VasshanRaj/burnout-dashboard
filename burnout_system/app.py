@@ -859,14 +859,7 @@ elif ss.role == "hr_manager":
         for a in acts:
             st.markdown(f"- {a}")
         st.caption("Prompts for a conversation, not instructions — the dashboard cannot know this "
-                   "person's circumstances. These prompts follow established workplace-wellbeing "
-                   "research rather than the model's internal weightings, and the two do not always "
-                   "agree: on this dataset, team support and career progression carry little or no "
-                   "marginal relationship to the predicted risk, yet both are well-evidenced "
-                   "burnout factors in the literature. Where they diverge the literature is "
-                   "followed, because a relationship the model barely uses is a weak basis for "
-                   "advising a person. **The model decides the tier; the research decides what is "
-                   "worth talking about.**")
+                   "person's circumstances.")
 
     # ---------- HOW THIS WORKS ----------
     
