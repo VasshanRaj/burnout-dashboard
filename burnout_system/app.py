@@ -926,6 +926,74 @@ elif ss.role == "hr_manager":
                        "the wording is left exactly as published rather than rewritten.")
 
         st.markdown("---")
+        st.markdown("#### From a questionnaire answer to a model input, step by step")
+        st.caption("Worked example for one measure — Job Satisfaction — using the reference "
+                   "dataset's real distribution. Overtime is the only input entered directly as a "
+                   "number; every questionnaire measure follows the four steps below.")
+
+        # Live worked example, computed from the same reference quantiles the model uses.
+        _sat_q = QS.get("satisfaction_score", [0.0] * 101)
+        _wl_q  = QS.get("workload_score", [0.0] * 101)
+        _lo, _hi = 0.05, 0.95
+
+        # Step 2: three answers, one reverse-scored, averaged onto a 0–1 position.
+        _raw = [2, 4, 2]                       # example Likert answers (1–5)
+        _adj = [2, 6 - 4, 2]                   # middle item is reverse-scored: 6 − 4 = 2
+        _pos = (sum(_adj) / len(_adj) - 1) / 4 # -> 0.25
+        # Step 4: equate onto the training scale.
+        _p_sat = _lo + _pos * (_hi - _lo)
+        _sat_val = float(np.interp(_p_sat, np.linspace(0, 1, len(_sat_q)), _sat_q))
+
+        st.markdown(
+            f"**Step 1 — Line up the answers.** Some questions are written in reverse so people "
+            f"read carefully. Those are flipped with *6 − answer*, so that on every question a "
+            f"higher number always means *more of the good thing*. "
+            f"Example answers **{_raw}** with the middle question reverse-scored become "
+            f"**{_adj}**."
+        )
+        st.markdown(
+            f"**Step 2 — Turn them into one 0–1 position.** Average the lined-up answers and place "
+            f"them on a 0–1 scale using *(average − 1) ÷ 4*. "
+            f"Here the average is **{sum(_adj)/len(_adj):.1f}**, giving a position of "
+            f"**{_pos:.2f}** — fairly low on satisfaction."
+        )
+        st.markdown(
+            f"**Step 3 — Align the workload answer to the feature's scale.** The workload "
+            f"questions are phrased in terms of demand, while the model's workload feature runs "
+            f"on a manageability scale where a higher value means a more manageable workload. "
+            f"The workload position is converted to match that scale with *1 − position*, so it "
+            f"lines up with how the feature is defined. This alignment applies to workload; the "
+            f"other measures are already on matching scales."
+        )
+        st.markdown(
+            f"**Step 4 — Compare to the reference dataset (equating).** The 0–1 position is matched "
+            f"to the same *rank* in the reference workforce, so the model receives a value on the "
+            f"scale it was trained on. A position of **{_pos:.2f}** on satisfaction sits at about "
+            f"the **{_p_sat*100:.0f}th percentile**, which maps to a satisfaction value of "
+            f"**{_sat_val:.2f}**. That equated value — not the raw answer — is what the model sees."
+        )
+
+        with st.expander("How the model then combines them"):
+            _p_wl = _lo + 0.20 * (_hi - _lo)   # illustrative flipped workload position
+            _wl_val = float(np.interp(_p_wl, np.linspace(0, 1, len(_wl_q)), _wl_q))
+            _wd = (1 - _wl_val) * (1 - _sat_val)
+            st.markdown(
+                f"Each measure becomes one equated value on the model's scale. The model uses eight "
+                f"features: the seven questionnaire measures plus overtime, and one combined signal "
+                f"built from two of them — **workload dissatisfaction** — calculated as "
+                f"*(1 − workload health) × (1 − satisfaction)*. It is large only when an employee "
+                f"has **both** a heavy workload **and** low satisfaction at the same time."
+            )
+            st.markdown(
+                f"Using this example: equated satisfaction **{_sat_val:.2f}** and an equated "
+                f"workload health of **{_wl_val:.2f}** give a workload-dissatisfaction of "
+                f"**{_wd:.2f}**. All eight values then go to the model, which returns a burnout-risk "
+                f"score, and that score decides the action tier."
+            )
+            st.caption("These numbers are computed live from the reference dataset's actual "
+                       "distribution — they are not fixed illustrations.")
+        
+        st.markdown("---")
         st.markdown("#### Why answers are compared, not just added up")
         st.markdown(
             "A score of 3 out of 5 sounds average. Whether it is average depends entirely on the question.\n\n"
