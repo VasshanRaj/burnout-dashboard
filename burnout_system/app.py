@@ -728,7 +728,7 @@ elif ss.role == "hr_manager":
                       f"<div class='kpi-value'>{cur['_pred']}</div>"
                       f"<div class='kpi-label'>{meta_row['trend']} since last check-in</div></div>",
                       unsafe_allow_html=True)
-        h[1].markdown(f"<div class='kpi'><div class='kpi-label'>Estimated burnout risk</div>"
+        h[1].markdown(f"<div class='kpi'><div class='kpi-label'>Estimated (HIGH) burnout risk</div>"
                       f"<div class='kpi-value'>{cur['_phigh']*100:.0f}%</div>"
                       f"<div class='kpi-label'>{meta_row['last_seen']} · {meta_row['days_ago']}d ago</div></div>",
                       unsafe_allow_html=True)
@@ -749,7 +749,7 @@ elif ss.role == "hr_manager":
                                                           range=list(TIER_COLOR.values())), legend=None))
             line = alt.Chart(ch).mark_line(point=alt.OverlayMarkDef(size=90), strokeWidth=2.5).encode(
                 x=alt.X("Check-in:T", title=None),
-                y=alt.Y("Risk:Q", scale=alt.Scale(domain=[0, 1]), title="Estimated burnout risk"),
+                y=alt.Y("Risk:Q", scale=alt.Scale(domain=[0, 1]), title="Estimated (HIGH) burnout risk"),
                 tooltip=[alt.Tooltip("Check-in:T"), alt.Tooltip("Risk:Q", format=".2f"), "Tier"])
             st.altair_chart((band + line).properties(height=240), use_container_width=True)
             st.caption("Shaded bands are the action tiers. The direction of the line matters more "
@@ -888,8 +888,8 @@ elif ss.role == "hr_manager":
         steps = [("1 · Ask", "Six short question sets plus overtime hours. Around 3 minutes."),
                  ("2 · Compare", "Each answer is placed against the reference dataset — is this "
                                  "person's workload typical, or in the bottom 10%?"),
-                 ("3 · Estimate", "The model weighs all seven together and returns a risk score "
-                                  "from 0 to 1."),
+                 ("3 · Estimate", "The model weighs all eight together and returns the probability that this person falls in the high-risk group "
+                                  "a score from 0 to 1."),
                  ("4 · Route", f"Score at or above {TT['Priority']:.2f} → Priority.\n"
                                f"\n{TT['Elevated']:.2f}–{TT['Priority']:.2f} → Elevated.\n"
                                f"\nBelow {TT['Elevated']:.2f} → Monitor.")]
