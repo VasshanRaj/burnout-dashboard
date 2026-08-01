@@ -1227,16 +1227,7 @@ elif ss.role == "hr_analyst":
                          use_container_width=True, height=430)
             st.caption("Top configurations are within ~0.001 MCC (a statistical tie); XGBoost with class weighting was "
                        "chosen on practical grounds — it keeps all the real data and calibrates well.")
-        st.markdown("---")
-        st.subheader("Robustness to label noise")
-        noise = csv("noise_robustness.csv")
-        if noise is not None:
-            nlong = noise.melt("noise_std", value_vars=["mcc", "auc_roc"], var_name="metric", value_name="score")
-            st.altair_chart(alt.Chart(nlong).mark_line(point=True, strokeWidth=2.5).encode(
-                x=alt.X("noise_std:Q", title="noise added (std)"), y=alt.Y("score:Q", scale=alt.Scale(domain=[0.4, 1.0])),
-                color=alt.Color("metric:N", scale=alt.Scale(range=[PRIMARY, ACCENT]), legend=alt.Legend(orient="top", title=None)),
-                tooltip=["noise_std", "metric", alt.Tooltip("score:Q", format=".3f")]).properties(height=300), use_container_width=True)
-            st.caption("Performance degrades smoothly as the target is corrupted — the behaviour of a genuine learner.")
+        
 
     # ------------------------------------------------------------ VALIDATION
     elif page == "Validation & Robustness":
@@ -1244,17 +1235,6 @@ elif ss.role == "hr_analyst":
         if INV is None:
             st.info("investigation_summary.joblib not found.")
         else:
-            recon = INV.get("reconstruction_r2", {})
-            st.subheader("How much of the target do the features explain?")
-            if recon:
-                rdf = pd.DataFrame([{"model": k, "R2": v} for k, v in recon.items()])
-                st.altair_chart(alt.Chart(rdf).mark_bar(color=PRIMARY, cornerRadiusEnd=4).encode(
-                    x=alt.X("R2:Q", scale=alt.Scale(domain=[0, 1]), title="R² reconstructing the burnout score"),
-                    y=alt.Y("model:N", sort="-x", title=None), tooltip=["model", alt.Tooltip("R2:Q", format=".4f")]).properties(height=130), use_container_width=True)
-            rmax = f"{max(recon.values()):.2f}" if recon else "≈0.83"
-            st.markdown(f"<div class='finding'>Features explain a large share of the score (R² ≈ {rmax}) but nowhere near "
-                        f"all of it. It shows a genuine predictive signal, not a target copy.</div>", unsafe_allow_html=True)
-            st.markdown("---")
             c1, c2 = st.columns(2)
             with c1:
                 st.subheader("Check 1 — Generalisation")
@@ -1348,11 +1328,4 @@ elif ss.role == "hr_analyst":
                 st.dataframe(pd.DataFrame(tr), use_container_width=True, hide_index=True)
                 st.caption("Moving the tier cut-points changes HR workload and coverage, not the prediction: "
                            "AUC is computed across all cut-points and is unaffected.")
-            st.markdown("---")
-            st.subheader("Fairness across groups (not model inputs)")
-            fr = INV.get("fairness", {})
-            st.caption("department and job_level are NOT model inputs; checking performance is consistent across them "
-                       "is a strong fairness test.")
-            fc = st.columns(2)
-            fc[0].metric("Department macro-F1 spread", f"{fr.get('department_spread', float('nan')):.4f}")
-            fc[1].metric("Job-level macro-F1 spread", f"{fr.get('job_level_spread', float('nan')):.4f}")
+            
