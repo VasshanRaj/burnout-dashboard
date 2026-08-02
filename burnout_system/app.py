@@ -159,8 +159,7 @@ elif ss.role == "employee":
     if not ss.get("emp_auth"):
         st.markdown("#### Sign in to continue")
         st.caption("Signing in links this check-in to your previous ones, so the direction of "
-                   "your wellbeing over time is visible to HR rather than a series of "
-                   "disconnected snapshots.")
+                   "your wellbeing over time is visible to HR. ")
         t_in, t_up = st.tabs(["Sign in", "Create an account"])
 
         with t_in:
