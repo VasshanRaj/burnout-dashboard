@@ -432,8 +432,7 @@ elif ss.role == "hr_manager":
 
             st.caption("**Risk score** is the estimated probability of high burnout risk (0–1). "
                        "**Change in risk score** is how far it has risen since that person's "
-                       "previous check-in — a bigger number means a faster decline. Click any "
-                       "column header to re-sort.")
+                       "previous check-in — a bigger number means a faster decline. ")
             _st_n = int(a["stale"].sum())
             if _st_n:
                 st.warning(f"⚠️ {_st_n} of these {len(a)} employees last checked in over "
