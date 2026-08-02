@@ -1381,9 +1381,9 @@ elif ss.role == "hr_analyst":
                 tsdf = pd.DataFrame(ts)
                 tsdf["cut"] = tsdf["low_mod_cut"].map("{:.2f}".format) + " / " + tsdf["mod_high_cut"].map("{:.2f}".format)
                 metric = st.radio("Metric", ["auc", "macro_f1", "mcc"], horizontal=True, key="ts_metric",
-                                  format_func=lambda m: {"auc": "AUC (threshold-independent)",
-                                                         "macro_f1": "Macro-F1 (per-class)",
-                                                         "mcc": "MCC (thresholded decision)"}[m])
+                                  format_func=lambda m: {"auc": "AUC",
+                                                         "macro_f1": "Macro-F1",
+                                                         "mcc": "MCC"}[m])
                 st.altair_chart(alt.Chart(tsdf).mark_line(point=True).encode(
                     x=alt.X("cut:N", title="low / high cut-point", sort=None,
                     axis=alt.Axis(labelAngle=-45, labelFontSize=9)),
