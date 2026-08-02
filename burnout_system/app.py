@@ -1046,8 +1046,8 @@ elif ss.role == "hr_manager":
             f"conversation soon |\n"
             f"| **Elevated** | {TT['Elevated']:.2f} – {TT['Priority']:.2f} | Some warning signs, "
             f"less clear-cut | Worth watching; check in at the next opportunity |\n"
-            f"| **Monitor** | Below {TT['Elevated']:.2f} | No strong warning signs right now | "
-            f"Routine support |")
+            f"| **Monitor** | Below {TT['Elevated']:.2f} | The model does not currently place this person's working conditions near the high-risk group | "
+            f"Routine support, but review the individual detail before ruling anything out |")
         st.warning(
             f"**Read the tiers as a ranking, not a verdict.** They sort your workforce by relative "
             f"risk so you know who to talk to first — they are not clinical thresholds, and "
