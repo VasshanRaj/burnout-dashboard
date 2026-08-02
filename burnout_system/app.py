@@ -283,21 +283,26 @@ elif ss.role == "employee":
                 st.markdown("<hr style='opacity:.12'>", unsafe_allow_html=True)
             st.markdown("#### Working hours")
             overtime = st.number_input("Overtime hours per week (beyond your contracted hours)",
-                                       min_value=0.0, value=0.0, step=0.5,
+                                       min_value=0.0, value=0.0, step=0.5, key="emp_overtime",
                                        help="Enter 0–40. If you genuinely worked more than 40, enter 40.")
             submitted = st.form_submit_button("Submit my check-in", type="primary", use_container_width=True)
 
         if submitted and overtime > 40:
             ss.emp_ot_error = True
 
+        if submitted:
+            _ot = float(ss.get("emp_overtime", overtime))
+            if _ot > 40:
+                ss.emp_ot_error = True
+            else:
+                ss.emp_ot_error = False
         if ss.get("emp_ot_error"):
             st.error("⚠️ Overtime value is too high. The maximum accepted is 40 hours per week. "
                      "Please re-enter a value of 40 or less. If you genuinely worked more than 40 "
                      "hours, please enter the maximum of 40.")
-
-        if submitted and overtime <= 40:
-            ss.emp_ot_error = False
-            feats = svc.features_for(responses, overtime)
+        if submitted and not ss.get("emp_ot_error"):
+            _ot = float(ss.get("emp_overtime", overtime))
+            feats = svc.features_for(responses, _ot)
             res = svc.predict(pd.DataFrame([feats]))
             # Identity comes from the signed-in session, not a free-text box: previously
             # anyone could type any ID, so a check-in could be filed against a colleague.
