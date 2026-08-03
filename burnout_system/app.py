@@ -1174,9 +1174,7 @@ elif ss.role == "hr_analyst":
         recon = (INV or {}).get("reconstruction_r2", {})
         r2 = f"{max(recon.values()):.2f}" if recon else "≈0.83"
         st.markdown(f"<div class='finding'><b>Summary.</b> The model classifies employees into Low / Moderate / High "
-                    f"burnout risk at MCC ≈ {TEST.get('mcc', float('nan')):.2f}. The selected "
-                    f"features explain a large share of the burnout score (R² ≈ {r2}) without the target being a "
-                    f"deterministic copy of the inputs, so the model has genuine learning to do.</div>", unsafe_allow_html=True)
+                    f"burnout risk at MCC ≈ {TEST.get('mcc', float('nan')):.2f}. ", unsafe_allow_html=True)
         
 
     # ------------------------------------------------------------ EDA
